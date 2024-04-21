@@ -1,14 +1,26 @@
 const Product = require("../models/Product");
-
+const Rating = require("../models/Rating");
 class ProductController {
-    async index(req, res) {
-        try {
-            const products = await Product.find().populate('category_id');
-            res.status(200).json(products);
-        } catch (err) {
-            res.status(500).json({ message: err.message });
+        async index(req, res) {
+            try {
+                // Find all products and populate the category_id field
+                let products = await Product.find().populate('category_id');
+                let newProducts = products
+                // Add a checking object to each product for testing
+                newProducts.map(product => {
+                    // console.log(product);
+                    product.checking = 'test';
+                });
+    
+                // Log the products array to see if the checking object is added
+                console.log(newProducts);
+    
+                // Send the response with products
+                res.status(200).json(products);
+            } catch (err) {
+                res.status(500).json({ message: err.message });
+            }
         }
-    }
 
     async store(req, res) {
         try {
