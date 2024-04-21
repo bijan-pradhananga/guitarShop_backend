@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const bcrypt = require('bcrypt')
 
 class UserController {
     async index(req, res) {
@@ -12,7 +13,14 @@ class UserController {
 
     async store(req, res) {
         try {
-            await User.create(req.body);
+            let image = "";
+            if (req.file) {
+                image = req.file.filename;
+            }
+            let password = req.body.password;
+            const salt = await bcrypt.genSalt(10);
+            password = await bcrypt.hash(password, salt);
+            const user = await User.create({ ...req.body, password, image });
             res.status(201).json({ message: 'User created successfully' });
         } catch (err) {
             res.status(500).json({ message: err.message });
