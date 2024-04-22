@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const reviewSchema = require('./Review')
 const productSchema = new mongoose.Schema({
     product_name: {
         type: String,
@@ -20,15 +20,20 @@ const productSchema = new mongoose.Schema({
     product_image: {
         type: String,
     },
-    created_at: {
-        type: Date,
-        default: Date.now
-    },
     category_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Category',
         required: true
+    },
+    reviews:[reviewSchema],
+    rating:{
+        type:Number,
+        default:0
+    },
+    totalReviews:{
+        type:Number,
+        default:0
     }
-});
+},{timestamps:true});
 
 module.exports = mongoose.model('Product', productSchema);;
