@@ -1,15 +1,39 @@
 const Product = require("../models/Product");
 const Rating = require("../models/Review");
 class ProductController {
-        async index(req, res) {
-            try {
-                // Find all products and populate the category_id field
-                let products = await Product.find().populate('category_id');
-                res.status(200).json(products);
-            } catch (err) {
-                res.status(500).json({ message: err.message });
+    async index(req, res) {
+        try {
+            // Extract pagination parameters from query string
+            let page = Number(req.query.page) || 1;
+            let limit = Number(req.query.limit) || 4;
+            let skip = (page - 1) * limit;
+    
+            // Find total number of products
+            let total = await Product.countDocuments();
+    
+            // Calculate total number of pages
+            let totalPages = Math.ceil(total / limit);
+
+            let productsQuery = Product.find().skip(skip).limit(limit).populate('category_id');
+    
+            // Check if sort parameter is provided in the query
+            if (req.query.sort) {
+                // Determine sorting order based on query parameter (default to ascending)
+                let sortDirection = req.query.sort === 'desc' ? -1 : 1;
+                // Add sorting by price to the query
+                productsQuery = productsQuery.sort({ price: sortDirection });
             }
+    
+            // Execute the query to find products
+            let products = await productsQuery;
+    
+            res.status(200).json({ products, total, totalPages });
+        } catch (err) {
+            res.status(500).json({ message: err.message });
         }
+    }
+    
+    
 
     async store(req, res) {
         try {
