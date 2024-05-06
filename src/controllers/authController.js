@@ -15,7 +15,6 @@ const loginController = async (req,res) =>{
             return res.status(404).json({message:'User Not Found'}) 
         }
         const match = comparePass(password,user.password)
-
         if(!match){
             return res.status(200).send({success:false,message:"invalid password"})
         }
