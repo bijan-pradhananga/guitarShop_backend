@@ -1,3 +1,4 @@
+const { hashPassword } = require("../helper/authHelper");
 const User = require("../models/User");
 const bcrypt = require('bcrypt')
 
@@ -18,8 +19,7 @@ class UserController {
                 image = req.file.filename;
             }
             let password = req.body.password;
-            const salt = await bcrypt.genSalt(10);
-            password = await bcrypt.hash(password, salt);
+            password = hashPassword(password);
             const user = await User.create({ ...req.body, password, image });
             res.status(201).json({ message: 'User created successfully' });
         } catch (err) {
