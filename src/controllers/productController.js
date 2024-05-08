@@ -8,31 +8,44 @@ class ProductController {
             let limit = Number(req.query.limit) || 4;
             let skip = (page - 1) * limit;
     
-            // Find total number of products
-            let total = await Product.countDocuments();
+            let productsQuery = Product.find().populate('category_id');
+    
+            // Check if category filter is provided in the query
+            if (req.query.category) {
+                let categoryIds = req.query.category.split(','); // Split category IDs
+                productsQuery = productsQuery.where('category_id').in(categoryIds);
+            }
+          
+            // Check if price range filter is provided in the query
+            if (req.query.minPrice && req.query.maxPrice) {
+                productsQuery = productsQuery.where('price').gte(req.query.minPrice).lte(req.query.maxPrice);
+            }
+    
+            // Execute the query to find filtered products
+            let filteredProducts = await productsQuery;
+    
+            // Calculate total number of filtered products
+            let total = filteredProducts.length;
     
             // Calculate total number of pages
             let totalPages = Math.ceil(total / limit);
-
-            let productsQuery = Product.find().skip(skip).limit(limit).populate('category_id');
     
             // Check if sort parameter is provided in the query
-            if (req.query.sort) {
+            if (req.query.sort && req.query.sort !== 'def') {
                 // Determine sorting order based on query parameter (default to ascending)
                 let sortDirection = req.query.sort === 'desc' ? -1 : 1;
-                // Add sorting by price to the query
-                productsQuery = productsQuery.sort({ price: sortDirection });
+                // Add sorting by price to the filtered products
+                filteredProducts.sort((a, b) => (a.price - b.price) * sortDirection);
             }
     
-            // Execute the query to find products
-            let products = await productsQuery;
+            // Apply pagination
+            let paginatedProducts = filteredProducts.slice(skip, skip + limit);
     
-            res.status(200).json({ products, total, totalPages });
+            res.status(200).json({ products: paginatedProducts, total, totalPages });
         } catch (err) {
             res.status(500).json({ message: err.message });
         }
     }
-    
     
 
     async store(req, res) {
