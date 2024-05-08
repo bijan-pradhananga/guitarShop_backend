@@ -4,7 +4,8 @@ class CategoryController {
     async index(req, res) {
         try {
             const catData = await Category.find();
-            res.status(200).json(catData);
+            const totalCategory = await Category.countDocuments()
+            res.status(200).json({category:catData,totalCategory});
         } catch (err) {
             res.status(500).json({ message: err.message });
         }
