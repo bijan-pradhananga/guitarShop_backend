@@ -59,7 +59,7 @@ class ProductController {
 
     async show(req, res) {
         try {
-            const product = await Product.findById(req.params.id);
+            const product = await Product.findById(req.params.id).populate('category_id');
             res.status(200).json(product);
         } catch (err) {
             res.status(500).json({ message: err.message });
