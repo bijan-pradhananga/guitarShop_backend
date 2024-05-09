@@ -8,21 +8,21 @@ class ProductController {
             let limit = Number(req.query.limit) || 4;
             let skip = (page - 1) * limit;
     
-            let productsQuery = Product.find().populate('category_id');
+            let productsQuery = await Product.find().populate('category_id');
     
             // Check if category filter is provided in the query
             if (req.query.category) {
                 let categoryIds = req.query.category.split(','); // Split category IDs
-                productsQuery = productsQuery.where('category_id').in(categoryIds);
+                productsQuery = await productsQuery.where('category_id').in(categoryIds);
             }
           
             // Check if price range filter is provided in the query
             if (req.query.minPrice && req.query.maxPrice) {
-                productsQuery = productsQuery.where('price').gte(req.query.minPrice).lte(req.query.maxPrice);
+                productsQuery = await productsQuery.where('price').gte(req.query.minPrice).lte(req.query.maxPrice);
             }
     
             // Execute the query to find filtered products
-            let filteredProducts = await productsQuery;
+            let filteredProducts =  productsQuery;
     
             // Calculate total number of filtered products
             let total = filteredProducts.length;
