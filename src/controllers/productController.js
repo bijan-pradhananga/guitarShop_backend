@@ -8,21 +8,21 @@ class ProductController {
             let limit = Number(req.query.limit) || 4;
             let skip = (page - 1) * limit;
     
-            let productsQuery = await Product.find().populate('category_id');
+            let productsQuery =  Product.find().populate('category_id');
     
             // Check if category filter is provided in the query
             if (req.query.category) {
                 let categoryIds = req.query.category.split(','); // Split category IDs
-                productsQuery = await productsQuery.where('category_id').in(categoryIds);
+                productsQuery =  productsQuery.where('category_id').in(categoryIds);
             }
           
             // Check if price range filter is provided in the query
             if (req.query.minPrice && req.query.maxPrice) {
-                productsQuery = await productsQuery.where('price').gte(req.query.minPrice).lte(req.query.maxPrice);
+                productsQuery =  productsQuery.where('price').gte(req.query.minPrice).lte(req.query.maxPrice);
             }
     
             // Execute the query to find filtered products
-            let filteredProducts =  productsQuery;
+            let filteredProducts = await productsQuery;
     
             // Calculate total number of filtered products
             let total = filteredProducts.length;
@@ -103,6 +103,20 @@ class ProductController {
             product.rating = product.reviews.reduce((acc, item) => acc + item.rating, 0) / product.reviews.length;
             await product.save()
             res.status(200).json({message:'Review Added',product})
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    }
+
+    async getProductByRating(req, res) {
+        try {
+            const products = await Product.find().sort({ rating: -1 }).limit(4);
+            if (products) {
+                res.status(200).json(products);
+            }else{
+                res.status(404).json({msg:'no products found'})
+            }
+            
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
