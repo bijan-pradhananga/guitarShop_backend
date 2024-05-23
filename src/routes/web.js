@@ -10,6 +10,6 @@ router.use('/user',userRouter)
 router.use('/category',categoryRouter)
 router.use('/product',productRouter)
 router.use('/cart',cartRouter)
-router.use('/login',authRouter)
+router.use('/auth',authRouter)
 
 module.exports = router
