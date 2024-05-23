@@ -40,8 +40,12 @@ class ProductController {
     
             // Apply pagination
             let paginatedProducts = filteredProducts.slice(skip, skip + limit);
-    
-            res.status(200).json({ products: paginatedProducts, total, totalPages });
+            if (paginatedProducts) {
+                res.status(200).json({ products: paginatedProducts, total, totalPages });
+            }else{
+                res.status(404).json({ message: 'no such products found' });
+            }
+           
         } catch (err) {
             res.status(500).json({ message: err.message });
         }
