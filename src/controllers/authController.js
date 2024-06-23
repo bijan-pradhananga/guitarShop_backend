@@ -61,21 +61,21 @@ const loginController = async (req, res) => {
 }
 
 //for authentication
-const isAuthenticated  = async (req, res) => {
+const isAuthenticated  = async (req, res, next) => {
     try {
         const cookie = req.cookies['jwt'];
         if (!cookie) {
-            return res.status(401).send({ message: 'unauthenticated' });
+            return res.status(401).send({success: false, message: 'unauthenticated' });
         }
 
         const claims = JWT.verify(cookie, process.env.JWT_SECRET);
         if (!claims) {
-            return res.status(401).send({ message: 'unauthenticated' });
+            return res.status(401).send({success: false, message: 'unauthenticated' });
         }
 
         const user = await User.findOne({ _id: claims._id });
         if (!user) {
-            return res.status(404).send({ message: 'User not found' });
+            return res.status(404).send({success: false, message: 'User not found' });
         }
 
         res.status(200).json({
@@ -89,6 +89,7 @@ const isAuthenticated  = async (req, res) => {
                 phone: user.phone
             }
         });
+        next();
     } catch (error) {
         console.error('Error in cookieController:', error.message);
         res.status(500).send({ message: 'Internal server error' });
