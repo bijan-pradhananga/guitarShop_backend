@@ -13,7 +13,6 @@ const cartSchema = new mongoose.Schema({
     },
     quantity: {
         type: Number,
-        default: 1, // Default quantity when adding a product to cart
         min: 1 // Minimum quantity allowed (cannot be less than 1)
     }
 })
