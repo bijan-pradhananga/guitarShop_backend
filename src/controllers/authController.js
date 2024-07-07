@@ -44,15 +44,6 @@ const loginController = async (req, res) => {
         //sending status
         res.status(200).send({
             success: true,
-            user: {
-                id: user._id,
-                first_name: user.first_name,
-                last_name: user.last_name,
-                username: user.username,
-                email: user.email,
-                address: user.address,
-                phone: user.phone
-            },
             token
         })
     } catch (error) {
@@ -80,14 +71,7 @@ const isAuthenticated  = async (req, res, next) => {
 
         res.status(200).json({
             success: true,
-            user: {
-                first_name: user.first_name,
-                last_name: user.last_name,
-                username: user.username,
-                email: user.email,
-                address: user.address,
-                phone: user.phone
-            }
+            user
         });
         next();
     } catch (error) {
