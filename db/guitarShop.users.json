@@ -1,0 +1,42 @@
+[{
+  "_id": {
+    "$oid": "6625112ae2b27b6078917753"
+  },
+  "first_name": "John",
+  "last_name": "Doe",
+  "username": "johndoe123",
+  "email": "johndoe@example.com",
+  "password": "$2b$10$ITWQFsBeXgVFToHpvBzK5O5l/U3Qvz/vJ6jRVsNtJfS4lF7X2dH8i",
+  "address": "123 Main St, Anytown",
+  "phone": "+1234567890",
+  "image": "",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "662511991a5d4b38ab25e34e"
+  },
+  "first_name": "Bijan",
+  "last_name": "Pradhananga",
+  "username": "bijan_prodigy",
+  "email": "bijan@gmail.com",
+  "password": "$2b$10$mqor.wHLoHftERYJgL2QUOCwxtFRM2dki2UUtvTqF3.LSzLTh/h42",
+  "address": "Ghattekulo, Ktm",
+  "phone": "9861703261",
+  "image": "",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "663d7c3c64ec16b8e743a441"
+  },
+  "first_name": "Alice",
+  "last_name": "Smith",
+  "username": "asmith",
+  "email": "alice.smith@example.com",
+  "password": "$2b$10$oEyrCmsxCC2xj2N/ErllwOrGJC1.v2aI27PC.NzNhDy.5h9fh6Az6",
+  "address": "456 Elm Street, Town, Country",
+  "phone": "987-654-3210",
+  "image": "",
+  "__v": 0
+}]

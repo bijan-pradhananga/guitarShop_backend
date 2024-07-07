@@ -1,0 +1,21 @@
+[{
+  "_id": {
+    "$oid": "662512731a5d4b38ab25e350"
+  },
+  "category_name": "electric",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "662512771a5d4b38ab25e352"
+  },
+  "category_name": "acoustic",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "663b196f5217b512d5194a4f"
+  },
+  "category_name": "bass",
+  "__v": 0
+}]

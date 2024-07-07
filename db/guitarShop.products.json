@@ -3,32 +3,108 @@
     "$oid": "662512af1a5d4b38ab25e355"
   },
   "product_name": "Electric Guitar1",
-  "price": 599.99,
+  "price": 699.99,
   "description": "A high-quality electric guitar suitable for beginners and professionals alike.",
-  "quantity": 10,
+  "quantity": 5,
   "category_id": {
     "$oid": "662512731a5d4b38ab25e350"
   },
   "created_at": {
     "$date": "2024-04-21T13:20:47.913Z"
   },
-  "__v": 0
+  "__v": 2,
+  "rating": 3,
+  "reviews": [
+    {
+      "user_id": {
+        "$oid": "662511991a5d4b38ab25e34e"
+      },
+      "rating": 3,
+      "_id": {
+        "$oid": "663c681312daef368727adc5"
+      },
+      "createdAt": {
+        "$date": "2024-05-09T06:07:15.578Z"
+      },
+      "updatedAt": {
+        "$date": "2024-05-09T06:07:15.578Z"
+      }
+    },
+    {
+      "user_id": {
+        "$oid": "6625112ae2b27b6078917753"
+      },
+      "rating": 3,
+      "_id": {
+        "$oid": "663c685712daef368727adcb"
+      },
+      "createdAt": {
+        "$date": "2024-05-09T06:08:23.680Z"
+      },
+      "updatedAt": {
+        "$date": "2024-05-09T06:08:23.680Z"
+      }
+    }
+  ],
+  "totalReviews": 2,
+  "updatedAt": {
+    "$date": "2024-07-07T02:18:55.182Z"
+  },
+  "product_image": "eguitar1.jpg"
 },
 {
   "_id": {
     "$oid": "662512c31a5d4b38ab25e358"
   },
   "product_name": "Acoustic Guitar1",
-  "price": 599.99,
+  "price": 299.99,
   "description": "A high-quality electric guitar suitable for beginners and professionals alike.",
-  "quantity": 10,
+  "quantity": 4,
   "category_id": {
     "$oid": "662512771a5d4b38ab25e352"
   },
   "created_at": {
     "$date": "2024-04-21T13:21:07.770Z"
   },
-  "__v": 0
+  "__v": 2,
+  "rating": 4.5,
+  "reviews": [
+    {
+      "user_id": {
+        "$oid": "662511991a5d4b38ab25e34e"
+      },
+      "rating": 4,
+      "_id": {
+        "$oid": "663c676212daef368727adbe"
+      },
+      "createdAt": {
+        "$date": "2024-05-09T06:04:18.897Z"
+      },
+      "updatedAt": {
+        "$date": "2024-05-09T06:04:18.897Z"
+      }
+    },
+    {
+      "user_id": {
+        "$oid": "6625112ae2b27b6078917753"
+      },
+      "rating": 5,
+      "_id": {
+        "$oid": "663c687712daef368727adcf"
+      },
+      "createdAt": {
+        "$date": "2024-05-09T06:08:55.628Z"
+      },
+      "updatedAt": {
+        "$date": "2024-05-09T06:08:55.628Z"
+      }
+    }
+  ],
+  "totalReviews": 2,
+  "updatedAt": {
+    "$date": "2024-07-07T01:51:11.170Z"
+  },
+  "product_image": "aguitar1.jpg"
 },
 {
   "_id": {
@@ -44,14 +120,37 @@
   "created_at": {
     "$date": "2024-04-21T13:21:25.170Z"
   },
-  "__v": 0
+  "__v": 1,
+  "rating": 3,
+  "reviews": [
+    {
+      "user_id": {
+        "$oid": "6625112ae2b27b6078917753"
+      },
+      "rating": 3,
+      "_id": {
+        "$oid": "663c6f0f12daef368727b025"
+      },
+      "createdAt": {
+        "$date": "2024-05-09T06:37:03.608Z"
+      },
+      "updatedAt": {
+        "$date": "2024-05-09T06:37:03.608Z"
+      }
+    }
+  ],
+  "totalReviews": 1,
+  "updatedAt": {
+    "$date": "2024-06-27T10:31:19.750Z"
+  },
+  "product_image": "aguitar2.jpg"
 },
 {
   "_id": {
     "$oid": "662512e81a5d4b38ab25e35d"
   },
   "product_name": "Electric Guitar2",
-  "price": 599.99,
+  "price": 399.99,
   "description": "A high-quality electric guitar suitable for beginners and professionals alike.",
   "quantity": 10,
   "category_id": {
@@ -60,7 +159,30 @@
   "created_at": {
     "$date": "2024-04-21T13:21:44.188Z"
   },
-  "__v": 0
+  "__v": 1,
+  "rating": 2,
+  "reviews": [
+    {
+      "user_id": {
+        "$oid": "6625112ae2b27b6078917753"
+      },
+      "rating": 2,
+      "_id": {
+        "$oid": "663c6f1b12daef368727b028"
+      },
+      "createdAt": {
+        "$date": "2024-05-09T06:37:15.916Z"
+      },
+      "updatedAt": {
+        "$date": "2024-05-09T06:37:15.916Z"
+      }
+    }
+  ],
+  "totalReviews": 1,
+  "updatedAt": {
+    "$date": "2024-06-27T10:29:36.368Z"
+  },
+  "product_image": "eguitar2.jpg"
 },
 {
   "_id": {
@@ -73,16 +195,33 @@
   "category_id": {
     "$oid": "662512731a5d4b38ab25e350"
   },
-  "rating": 0,
-  "totalReviews": 0,
-  "reviews": [],
+  "rating": 1,
+  "totalReviews": 1,
+  "reviews": [
+    {
+      "user_id": {
+        "$oid": "6625112ae2b27b6078917753"
+      },
+      "rating": 1,
+      "_id": {
+        "$oid": "663c6f2912daef368727b02b"
+      },
+      "createdAt": {
+        "$date": "2024-05-09T06:37:29.775Z"
+      },
+      "updatedAt": {
+        "$date": "2024-05-09T06:37:29.775Z"
+      }
+    }
+  ],
   "createdAt": {
     "$date": "2024-04-25T03:40:44.318Z"
   },
   "updatedAt": {
-    "$date": "2024-04-25T03:40:44.318Z"
+    "$date": "2024-05-09T06:37:29.776Z"
   },
-  "__v": 0
+  "__v": 1,
+  "product_image": "eguitar1.5.jpg"
 },
 {
   "_id": {
@@ -95,45 +234,79 @@
   "category_id": {
     "$oid": "662512731a5d4b38ab25e350"
   },
-  "rating": 0,
-  "totalReviews": 0,
-  "reviews": [],
+  "rating": 4,
+  "totalReviews": 1,
+  "reviews": [
+    {
+      "user_id": {
+        "$oid": "6625112ae2b27b6078917753"
+      },
+      "rating": 4,
+      "_id": {
+        "$oid": "663c6f3312daef368727b02e"
+      },
+      "createdAt": {
+        "$date": "2024-05-09T06:37:39.438Z"
+      },
+      "updatedAt": {
+        "$date": "2024-05-09T06:37:39.438Z"
+      }
+    }
+  ],
   "createdAt": {
     "$date": "2024-05-06T04:34:32.538Z"
   },
   "updatedAt": {
-    "$date": "2024-05-06T04:34:32.538Z"
+    "$date": "2024-05-09T06:37:39.439Z"
   },
-  "__v": 0
+  "__v": 1,
+  "product_image": "eguitar3.jpg"
 },
 {
   "_id": {
     "$oid": "66385ddea4b521b876d505c9"
   },
   "product_name": "Electric Guitar4",
-  "price": 100.99,
+  "price": 150.99,
   "description": "A high-quality electric guitar suitable for beginners and professionals alike.",
   "quantity": 10,
   "category_id": {
     "$oid": "662512731a5d4b38ab25e350"
   },
-  "rating": 0,
-  "totalReviews": 0,
-  "reviews": [],
+  "rating": 3,
+  "totalReviews": 1,
+  "reviews": [
+    {
+      "user_id": {
+        "$oid": "6625112ae2b27b6078917753"
+      },
+      "rating": 3,
+      "_id": {
+        "$oid": "663c6f4412daef368727b031"
+      },
+      "createdAt": {
+        "$date": "2024-05-09T06:37:56.451Z"
+      },
+      "updatedAt": {
+        "$date": "2024-05-09T06:37:56.451Z"
+      }
+    }
+  ],
   "createdAt": {
     "$date": "2024-05-06T04:34:38.550Z"
   },
   "updatedAt": {
-    "$date": "2024-05-06T04:34:38.550Z"
+    "$date": "2024-05-09T06:37:56.451Z"
   },
-  "__v": 0
+  "__v": 1,
+  "product_image": "eguitar4.jpg"
 },
 {
   "_id": {
     "$oid": "66385dfda4b521b876d505d1"
   },
   "product_name": "Acoustic Guitar3",
-  "price": 100.99,
+  "price": 50.99,
   "description": "A high-quality electric guitar suitable for beginners and professionals alike.",
   "quantity": 10,
   "category_id": {
@@ -148,5 +321,45 @@
   "updatedAt": {
     "$date": "2024-05-06T04:35:09.759Z"
   },
-  "__v": 0
+  "__v": 0,
+  "product_image": "aguitar3.jpg"
+},
+{
+  "_id": {
+    "$oid": "663b1f2a5217b512d5194a8f"
+  },
+  "product_name": "Bass Guitar1",
+  "price": 100.99,
+  "description": "A high-quality bass guitar suitable for beginners and professionals alike.",
+  "quantity": 10,
+  "category_id": {
+    "$oid": "663b196f5217b512d5194a4f"
+  },
+  "rating": 4,
+  "totalReviews": 1,
+  "reviews": [
+    {
+      "user_id": {
+        "$oid": "6625112ae2b27b6078917753"
+      },
+      "rating": 4,
+      "_id": {
+        "$oid": "663c6f5012daef368727b034"
+      },
+      "createdAt": {
+        "$date": "2024-05-09T06:38:08.537Z"
+      },
+      "updatedAt": {
+        "$date": "2024-05-09T06:38:08.537Z"
+      }
+    }
+  ],
+  "createdAt": {
+    "$date": "2024-05-08T06:43:54.625Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-27T10:16:54.110Z"
+  },
+  "__v": 1,
+  "product_image": "bguitar1.jpg"
 }]
