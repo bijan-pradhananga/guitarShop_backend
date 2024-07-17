@@ -1,4 +1,6 @@
 const { hashPassword, comparePass } = require("../helper/authHelper");
+const fs = require('fs');
+const path = require('path');
 const User = require("../models/User");
 
 class UserController {
@@ -37,7 +39,25 @@ class UserController {
 
     async update(req, res) {
         try {
-            await User.findByIdAndUpdate(req.params.id, req.body);
+            const userId = req.params.id;
+            const user = await User.findById(userId);
+            if (!user) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+            // Handle image upload if a file is present in the request
+            if (req.file) {
+                const oldImagePath = user.image ? path.join(__dirname, '../../public/users', user.image) : null;
+                // Save the new image
+                const imagePath = req.file.filename;
+                // Update the user's image path in the database
+                req.body.image = imagePath;
+                // Delete the old image if it exists
+                if (oldImagePath && fs.existsSync(oldImagePath)) {
+                    fs.unlinkSync(oldImagePath);
+                }
+            }
+            // Update user data
+            await User.findByIdAndUpdate(userId, req.body, { new: true });
             res.status(200).json({ message: 'User updated successfully' });
         } catch (err) {
             res.status(500).json({ message: err.message });

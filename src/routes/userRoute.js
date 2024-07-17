@@ -10,7 +10,7 @@ const upload = fInstance.upload('users');
 userRouter.get('/', uInstance.index);
 userRouter.post('/',upload.single('image'), uInstance.store);
 userRouter.get('/:id', uInstance.show);
-userRouter.put('/:id', uInstance.update);
+userRouter.put('/:id',upload.single('image'), uInstance.update);
 userRouter.delete('/:id', uInstance.destroy);
 userRouter.put('/password/:id',checkAuth,uInstance.changePassword);
 
