@@ -66,7 +66,24 @@ class UserController {
 
     async destroy(req, res) {
         try {
+            // Find the product by ID
+            const user = await User.findById(req.params.id);
+            
+            if (!user) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+    
+            // Construct the image path
+            const imagePath = user.image ? path.join(__dirname, '../../public/users', user.image) : null;
+            
+            // Delete the image file if it exists
+            if (imagePath && fs.existsSync(imagePath)) {
+                fs.unlinkSync(imagePath);
+            }
+    
+            // Delete the product from the database
             await User.findByIdAndDelete(req.params.id);
+    
             res.status(200).json({ message: 'User deleted successfully' });
         } catch (err) {
             res.status(500).json({ message: err.message });
