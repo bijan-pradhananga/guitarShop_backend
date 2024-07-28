@@ -8,7 +8,7 @@ class ProductController {
             let limit = Number(req.query.limit) || 4;
             let skip = (page - 1) * limit;
     
-            let productsQuery =  Product.find().populate('category_id');
+            let productsQuery =  Product.find().populate('category_id').populate('brand_id');
     
             // Check if category filter is provided in the query
             if (req.query.category) {
@@ -63,7 +63,7 @@ class ProductController {
 
     async show(req, res) {
         try {
-            const product = await Product.findById(req.params.id).populate('category_id');
+            const product = await Product.findById(req.params.id).populate('category_id').populate('brand_id');
             res.status(200).json(product);
         } catch (err) {
             res.status(500).json({ message: err.message });
@@ -92,7 +92,7 @@ class ProductController {
         const { name } = req.query;
         try {
             // Use regex to perform case-insensitive search
-            const products = await Product.find({ product_name: { $regex: name, $options: 'i' } }).limit(3);
+            const products = await Product.find({ product_name: { $regex: name, $options: 'i' } }).limit(3).populate('category_id').populate('brand_id');
             if (products.length === 0) {
                 return res.status(404).json({ success: false, message: 'No products found' });
             }
