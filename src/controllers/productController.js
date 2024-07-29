@@ -92,14 +92,14 @@ class ProductController {
                 const oldImagePath = product.product_image ? path.join(__dirname, '../../public/products', product.product_image) : null;
                 // Save the new image
                 const imagePath = req.file.filename;
-                // Update the user's image path in the database
-                req.body.image = imagePath;
+                // Update the product's image path in the database
+                req.body.product_image = imagePath;
                 // Delete the old image if it exists
                 if (oldImagePath && fs.existsSync(oldImagePath)) {
                     fs.unlinkSync(oldImagePath);
                 }
             }
-            await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
+            await Product.findByIdAndUpdate(productId, req.body, { new: true });
             res.status(200).json({ message: 'Product updated successfully' });
         } catch (err) {
             res.status(500).json({ message: err.message });
