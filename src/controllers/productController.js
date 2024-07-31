@@ -172,7 +172,9 @@ class ProductController {
 
     async getProductByRating(req, res) {
         try {
-            const products = await Product.find().sort({ rating: -1 }).limit(4);
+            const products = await Product.find().sort({ rating: -1 })
+            .populate('category_id')
+            .populate('brand_id').limit(4);
             if (products) {
                 res.status(200).json(products);
             } else {
