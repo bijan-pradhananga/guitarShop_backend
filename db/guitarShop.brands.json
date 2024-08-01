@@ -1,0 +1,28 @@
+[{
+  "_id": {
+    "$oid": "669b3c82a633563333d45786"
+  },
+  "brand_name": "Aria",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669b3ca9a633563333d4578b"
+  },
+  "brand_name": "Yamaha",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669b3cbea633563333d4578d"
+  },
+  "brand_name": "Gibson",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669b3ce1a633563333d4578f"
+  },
+  "brand_name": "Martin",
+  "__v": 0
+}]

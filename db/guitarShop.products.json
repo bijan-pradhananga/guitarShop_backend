@@ -48,9 +48,10 @@
   ],
   "totalReviews": 2,
   "updatedAt": {
-    "$date": "2024-07-07T02:18:55.182Z"
+    "$date": "2024-07-12T03:53:56.293Z"
   },
-  "product_image": "eguitar1.jpg"
+  "product_image": "eguitar1.jpg",
+  "brand_id": "669b3c82a633563333d45786"
 },
 {
   "_id": {
@@ -102,9 +103,10 @@
   ],
   "totalReviews": 2,
   "updatedAt": {
-    "$date": "2024-07-07T01:51:11.170Z"
+    "$date": "2024-07-12T08:09:12.881Z"
   },
-  "product_image": "aguitar1.jpg"
+  "product_image": "aguitar1.jpg",
+  "brand_id": "669b3ca9a633563333d4578b"
 },
 {
   "_id": {
@@ -141,9 +143,12 @@
   ],
   "totalReviews": 1,
   "updatedAt": {
-    "$date": "2024-06-27T10:31:19.750Z"
+    "$date": "2024-07-30T07:09:00.629Z"
   },
-  "product_image": "aguitar2.jpg"
+  "product_image": "aguitar2.jpg",
+  "brand_id": {
+    "$oid": "669b3c82a633563333d45786"
+  }
 },
 {
   "_id": {
@@ -182,7 +187,8 @@
   "updatedAt": {
     "$date": "2024-06-27T10:29:36.368Z"
   },
-  "product_image": "eguitar2.jpg"
+  "product_image": "eguitar2.jpg",
+  "brand_id": "669b3ca9a633563333d4578b"
 },
 {
   "_id": {
@@ -221,7 +227,8 @@
     "$date": "2024-05-09T06:37:29.776Z"
   },
   "__v": 1,
-  "product_image": "eguitar1.5.jpg"
+  "product_image": "eguitar1.5.jpg",
+  "brand_id": "669b3cbea633563333d4578d"
 },
 {
   "_id": {
@@ -257,10 +264,11 @@
     "$date": "2024-05-06T04:34:32.538Z"
   },
   "updatedAt": {
-    "$date": "2024-05-09T06:37:39.439Z"
+    "$date": "2024-07-31T02:13:59.956Z"
   },
   "__v": 1,
-  "product_image": "eguitar3.jpg"
+  "product_image": "eguitar3.jpg",
+  "brand_id": "669b3ce1a633563333d4578f"
 },
 {
   "_id": {
@@ -299,7 +307,8 @@
     "$date": "2024-05-09T06:37:56.451Z"
   },
   "__v": 1,
-  "product_image": "eguitar4.jpg"
+  "product_image": "eguitar4.jpg",
+  "brand_id": "669b3cbea633563333d4578d"
 },
 {
   "_id": {
@@ -322,7 +331,8 @@
     "$date": "2024-05-06T04:35:09.759Z"
   },
   "__v": 0,
-  "product_image": "aguitar3.jpg"
+  "product_image": "aguitar3.jpg",
+  "brand_id": "669b3ca9a633563333d4578b"
 },
 {
   "_id": {
@@ -361,5 +371,6 @@
     "$date": "2024-06-27T10:16:54.110Z"
   },
   "__v": 1,
-  "product_image": "bguitar1.jpg"
+  "product_image": "bguitar1.jpg",
+  "brand_id": "669b3c82a633563333d45786"
 }]
