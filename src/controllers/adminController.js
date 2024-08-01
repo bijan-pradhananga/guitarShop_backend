@@ -24,14 +24,14 @@ class AdminController {
             const admin = await Admin.create({...req.body,password,image});
             res.status(201).json({message:"Admin Created Successfully"});
         } catch (error) {
-            res.status(500).json({ message: err.message });
+            res.status(500).json({ message: error.message });
         }
     }
 
     async show(req,res){
         try {
             const admin = await Admin.findById(req.params.id);
-            res.status(200).json(admin)
+            res.status(200).json({admin})
         } catch (error) {
             res.status(500).json({ message: err.message });
         }
