@@ -19,7 +19,7 @@ class CartController {
                 existingCartItem.quantity += quantity;
                 await existingCartItem.save();
             } else {
-                await Cart.create({ product_id, user_id , quantity});
+                await Cart.create({ product_id, user_id, quantity });
             }
 
             // Decrease the product quantity
@@ -50,7 +50,7 @@ class CartController {
                 await product.save();
             }
 
-            return res.status(200).json({ success: true, message: 'Product removed from cart successfully' ,product_id:product._id});
+            return res.status(200).json({ success: true, message: 'Product removed from cart successfully', product_id: product._id });
         } catch (err) {
             if (!res.headersSent) {
                 res.status(500).json({ success: false, message: err.message });
@@ -65,13 +65,17 @@ class CartController {
                 path: 'product_id',
                 populate: {
                     path: 'category_id',
-                    select: 'category_name' 
+                    select: 'category_name'
                 }
             });
-            return res.status(200).json(cartItems);
+            // Calculate the total price
+            const total = cartItems.reduce((total, cartItem) => {
+                return total + cartItem.product_id.price * cartItem.quantity;
+            }, 0);
+            return res.status(200).json({ cartItems,total });
         } catch (err) {
             if (!res.headersSent) {
-                res.status(500).json({ success:true, message: err.message });
+                res.status(500).json({ success: true, message: err.message });
             }
         }
     }
