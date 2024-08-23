@@ -118,6 +118,41 @@ class OrderController {
         }
     }
 
+    async update(req,res){
+        try {
+            await Order.findByIdAndUpdate(req.params.id,{...req.body});
+            res.status(200).json({success:true, message: 'Order updated successfully' });
+        } catch (error) {
+            res.status(500).json({success:true, message: err.message });
+        }
+    }
+
+    async cancelOrder(req, res) {
+        try {
+            const { id } = req.params; // Assuming the order ID is passed as a URL parameter
+            // Find the order by its ID and populate the product details
+            const order = await Order.findById(id).populate('items.product_id');
+            if (!order) {
+                return res.status(404).json({ success: false, message: 'Order not found' });
+            }
+            // Update the status of the order to 'Cancelled'
+            order.status = 'Cancelled';
+            await order.save();
+    
+            // Loop through each item in the order and increase the quantity of the product
+            for (let item of order.items) {
+                const product = await Product.findById(item.product_id._id);
+                if (product) {
+                    product.quantity += item.quantity;
+                    await product.save();
+                }
+            }
+            return res.status(200).json({ success: true, message: 'Order cancelled successfully' });
+        } catch (error) {
+            return res.status(500).json({ success: false, message: error.message });
+        }
+    }
+    
 
 
 }
