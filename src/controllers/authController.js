@@ -7,7 +7,7 @@ const registerController = async (req, res) => {
     try {
         let image = "";
         if (req.file) {
-            image = req.file.path;
+            image = req.file.filename;
         }
         let password = req.body.password;
         password = await hashPassword(password);

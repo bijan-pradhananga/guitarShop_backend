@@ -1,8 +1,8 @@
 const express = require('express')
 const {registerController,loginController, isAuthenticated , logoutController,adminLoginController, adminLogoutController,isAdminAuthenticated} = require('../controllers/authController')
 const authRouter = express.Router()
-const UploadCloudMiddleware = require('../middleware/UploadCloudMiddleware')
-const fInstance = new UploadCloudMiddleware();
+const UploadMiddleware = require('../middleware/UploadMiddleware')
+const fInstance = new UploadMiddleware();
 const upload = fInstance.upload('users');
 
 authRouter.post('/login',loginController)
