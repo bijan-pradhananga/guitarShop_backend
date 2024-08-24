@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "src/index.js",
     "dev": "nodemon --env-file=.env src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "vercel-build":"echo hello"
   },
   "author": "Bijan Pradhananga",
   "license": "ISC",
