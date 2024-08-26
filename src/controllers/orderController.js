@@ -74,11 +74,7 @@ class OrderController {
                 query = query.limit(limit);
             }
             const orders = await query;
-            if (orders.length > 0) {
-                res.status(200).json({ success: true, orders });
-            } else {
-                res.status(404).json({ success: false, message: "No Orders Found" });
-            }
+            res.status(200).json({ success: true, orders });
         } catch (err) {
             res.status(500).json({ success: false, message: err.message });
         }
