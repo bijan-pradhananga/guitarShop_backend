@@ -65,14 +65,15 @@ class OrderController {
 
     async getUserOrders(req, res) {
         try {
-            const orders = await Order.find({ user_id: req.params.id }).populate({
+            const limit = parseInt(req.query.limit, 10) || null;
+            let query = Order.find({ user_id: req.params.id }).populate({
                 path: 'items.product_id',
                 select: 'product_name price product_image', // Select the fields you want to include
-                // populate: {
-                //     path: 'category_id',
-                //     select: 'category_name', // Optionally populate the category details
-                // }
             });
+            if (limit) {
+                query = query.limit(limit);
+            }
+            const orders = await query;
             if (orders.length > 0) {
                 res.status(200).json({ success: true, orders });
             } else {
@@ -82,7 +83,7 @@ class OrderController {
             res.status(500).json({ success: false, message: err.message });
         }
     }
-
+    
 
     async buyNow(req, res) {
         try {
