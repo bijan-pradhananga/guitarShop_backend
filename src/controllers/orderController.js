@@ -69,7 +69,7 @@ class OrderController {
             let query = Order.find({ user_id: req.params.id }).populate({
                 path: 'items.product_id',
                 select: 'product_name price product_image', // Select the fields you want to include
-            });
+            }).sort({ createdAt: -1 });
             if (limit) {
                 query = query.limit(limit);
             }
