@@ -3,6 +3,7 @@ const cors = require('cors')
 const router = require('./routes/web')
 const Connection = require('./database/Connection')
 const cookieParser = require('cookie-parser')
+require('dotenv').config();
 const app = express()
 const port = 3001
 
