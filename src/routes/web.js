@@ -8,6 +8,7 @@ const orderRouter = require('./orderRouter')
 const authRouter = require('./authRoute')
 const wishlistRouter = require('./wishlistRoute')
 const adminRouter = require('./adminRoute')
+const paymentRoute = require('./paymentRoute')
 const router = express.Router()
 
 router.use('/user',userRouter)
@@ -19,6 +20,7 @@ router.use('/product',productRouter)
 router.use('/cart',cartRouter)
 router.use('/auth',authRouter)
 router.use('/wishlist',wishlistRouter)
+router.use('/payment',paymentRoute)
 
 
 module.exports = router

@@ -23,6 +23,11 @@ const orderSchema = new mongoose.Schema({
             }
         }
     ],
+    payment:{
+        type: String,
+        enum: ['esewa','cash on delivery'],
+        required: true
+    },
     total: {
         type: Number,
         required: true
