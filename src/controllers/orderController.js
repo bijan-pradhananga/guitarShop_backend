@@ -103,6 +103,7 @@ class OrderController {
             const order = new Order({
                 user_id,
                 items,
+                payment:'cash on delivery' ,
                 total: totalPrice
             });
             await order.save();
