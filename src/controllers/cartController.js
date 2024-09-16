@@ -71,7 +71,7 @@ class CartController {
             // Calculate the total price
             const total = cartItems.reduce((total, cartItem) => {
                 return total + cartItem.product_id.price * cartItem.quantity;
-            }, 0);
+            }, 0).toFixed(2);
             return res.status(200).json({ cartItems,total });
         } catch (err) {
             if (!res.headersSent) {
