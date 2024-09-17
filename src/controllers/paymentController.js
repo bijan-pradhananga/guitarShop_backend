@@ -2,6 +2,7 @@ const { getEsewaPaymentHash, verifyEsewaPayment } = require("../helper/esewa");
 const Order = require('../models/Order');
 const Payment = require('../models/Payment');
 const Product = require("../models/Product");
+const Cart = require('../models/Cart');
 
 class PaymentController {
     async initializePayment(req, res) {
@@ -52,6 +53,7 @@ class PaymentController {
         }
     }
 
+    //for checkout
     async initializePayment2(req, res) {
         try {
             const { user_id } = req.body;
@@ -77,7 +79,7 @@ class PaymentController {
             await Cart.deleteMany({ user_id });
             // Initiate payment with eSewa
             const paymentInitiate = await getEsewaPaymentHash({
-                amount: totalPrice,
+                amount: total,
                 transaction_uuid: order._id,
             });
 
