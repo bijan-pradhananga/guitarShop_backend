@@ -50,10 +50,13 @@ class OrderController {
                 price: item.product_id.price
             }));
             const total = items.reduce((total, item) => total + item.price * item.quantity, 0);
+            const total_quantity = items.reduce((sum, item) => sum + item.quantity, 0); 
             const order = new Order({
                 user_id,
                 items,
-                total
+                payment:'cash on delivery',
+                total,
+                total_quantity
             });
             await order.save();
             await Cart.deleteMany({ user_id });
@@ -103,8 +106,9 @@ class OrderController {
             const order = new Order({
                 user_id,
                 items,
-                payment:'cash on delivery' ,
-                total: totalPrice
+                payment:'cash on delivery',
+                total: totalPrice,
+                total_quantity:quantity
             });
             await order.save();
             // Decrease the product quantity
@@ -127,7 +131,7 @@ class OrderController {
 
     async cancelOrder(req, res) {
         try {
-            const { id } = req.params; // Assuming the order ID is passed as a URL parameter
+            const { id } = req.params; 
             // Find the order by its ID and populate the product details
             const order = await Order.findById(id).populate('items.product_id');
             if (!order) {
