@@ -21,45 +21,58 @@ const getEsewaPaymentHash = async  ({ amount, transaction_uuid }) =>  {
 }
 
 const verifyEsewaPayment = async (encodedData) => {
-    try {
-      // decoding base64 code revieved from esewa
+  try {
+      // Decoding base64 code received from eSewa
       let decodedData = atob(encodedData);
       decodedData = await JSON.parse(decodedData);
+
+      // Remove commas from total_amount for consistent formatting
+      const totalAmount = decodedData.total_amount.replace(/,/g, '');
+
       let headersList = {
-        Accept: "application/json",
-        "Content-Type": "application/json",
+          Accept: "application/json",
+          "Content-Type": "application/json",
       };
-  
-      const data = `transaction_code=${decodedData.transaction_code},status=${decodedData.status},total_amount=${decodedData.total_amount},transaction_uuid=${decodedData.transaction_uuid},product_code=${process.env.ESEWA_PRODUCT_CODE},signed_field_names=${decodedData.signed_field_names}`;
-  
+
+      const data = `transaction_code=${decodedData.transaction_code},status=${decodedData.status},total_amount=${totalAmount},transaction_uuid=${decodedData.transaction_uuid},product_code=${process.env.ESEWA_PRODUCT_CODE},signed_field_names=${decodedData.signed_field_names}`;
+
       const secretKey = process.env.ESEWA_SECRET_KEY;
-      const hash = crypto
-        .createHmac("sha256", secretKey)
-        .update(data)
-        .digest("base64");
-  
-      // console.log(hash);
-      // console.log(decodedData.signature);
+      const hash = crypto.createHmac("sha256", secretKey).update(data).digest("base64");
+
+      // Log for debugging
+      // console.log("Hash for comparison:", hash);
+      // console.log("Received Signature:", decodedData.signature);
+
+      // Prepare request options
       let reqOptions = {
-        url: `${process.env.ESEWA_GATEWAY_URL}/api/epay/transaction/status/?product_code=${process.env.ESEWA_PRODUCT_CODE}&total_amount=${decodedData.total_amount}&transaction_uuid=${decodedData.transaction_uuid}`,
-        method: "GET",
-        headers: headersList,
+          url: `${process.env.ESEWA_GATEWAY_URL}/api/epay/transaction/status/?product_code=${process.env.ESEWA_PRODUCT_CODE}&total_amount=${totalAmount}&transaction_uuid=${decodedData.transaction_uuid}`,
+          method: "GET",
+          headers: headersList,
       };
+
       if (hash !== decodedData.signature) {
-        throw { message: "Invalid Info", decodedData };
+          throw { message: "Invalid Info", decodedData };
       }
+
+      // Make request to eSewa
       let response = await axios.request(reqOptions);
+      // console.log("Response from eSewa:", response.data);
+
       if (
-        response.data.status !== "COMPLETE" ||
-        response.data.transaction_uuid !== decodedData.transaction_uuid ||
-        Number(response.data.total_amount) !== Number(decodedData.total_amount)
+          response.data.status !== "COMPLETE" ||
+          response.data.transaction_uuid !== decodedData.transaction_uuid ||
+          Number(response.data.total_amount) !== Number(totalAmount)
       ) {
-        throw { message: "Invalid Info", decodedData };
+          throw { message: "Invalid Info", decodedData };
       }
+
       return { response: response.data, decodedData };
-    } catch (error) {
+  } catch (error) {
+      console.error("Verification Error:", error); // Log the error for further insight
       throw error;
-    }
   }
+};
+
+
 
   module.exports = { verifyEsewaPayment, getEsewaPaymentHash };

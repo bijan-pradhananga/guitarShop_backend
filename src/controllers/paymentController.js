@@ -99,7 +99,7 @@ class PaymentController {
 
     async completePayment(req, res) {
         const { data } = req.query; // Data received from eSewa's redirect
-
+        
         try {
             // Verify payment with eSewa
             const paymentInfo = await verifyEsewaPayment(data);
