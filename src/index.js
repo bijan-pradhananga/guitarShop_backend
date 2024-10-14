@@ -12,7 +12,10 @@ app.use(express.json());
 app.use(cookieParser())
 app.use(cors({
   credentials:true,
-  origin:['http://localhost:3000']
+    origin: [
+    'http://localhost:3000', // for local development
+    'https://guitar-shop-frontend-brown.vercel.app' //frontend URL
+  ]
 }));
 
 app.use(express.urlencoded({ extended: true }));
