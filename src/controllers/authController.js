@@ -38,12 +38,10 @@ const loginController = async (req, res) => {
         }
         //generate token
         const token = await JWT.sign({ _id: user.id }, process.env.JWT_SECRET)
- res.cookie('jwt', token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production', // Secure in production
-    maxAge: 24 * 60 * 60 * 1000, // 1 day
-});
-
+        res.cookie('jwt', token, {
+            httOnly: true,
+            expiresIn: 24 * 60 * 60 * 1000
+        })
         //sending status
         res.status(200).send({
             success: true,
@@ -73,12 +71,10 @@ const adminLoginController = async (req, res) => {
         }
         //generate token
         const token = await JWT.sign({ _id: admin.id }, process.env.JWT_SECRET)
-res.cookie('admin_jwt', token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production', // Secure in production
-    maxAge: 24 * 60 * 60 * 1000, // 1 day
-});
-
+        res.cookie('admin_jwt', token, {
+            httOnly: true,
+            expiresIn: 24 * 60 * 60 * 1000
+        })
         //sending status
         res.status(200).send({
             success: true,
@@ -93,14 +89,12 @@ res.cookie('admin_jwt', token, {
 const isAuthenticated  = async (req, res, next) => {
     try {
         const cookie = req.cookies['jwt'];
-        console.log(cookie);
-        
         if (!cookie) {
             return res.status(401).send({success: false, message: 'unauthenticated' });
         }
         const claims = JWT.verify(cookie, process.env.JWT_SECRET);
         if (!claims) {
-            return res.status(401).send({success: false, message: 'unauthenticated' });
+            return res.status(401).send({success: false, message: 'claims not match' });
         }
         const user = await User.findOne({ _id: claims._id });
         if (!user) {
