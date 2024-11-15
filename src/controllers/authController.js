@@ -38,10 +38,12 @@ const loginController = async (req, res) => {
         }
         //generate token
         const token = await JWT.sign({ _id: user.id }, process.env.JWT_SECRET)
-        res.cookie('jwt', token, {
-            httOnly: true,
-            expiresIn: 24 * 60 * 60 * 1000
-        })
+ res.cookie('jwt', token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production', // Secure in production
+    maxAge: 24 * 60 * 60 * 1000, // 1 day
+});
+
         //sending status
         res.status(200).send({
             success: true,
@@ -71,10 +73,12 @@ const adminLoginController = async (req, res) => {
         }
         //generate token
         const token = await JWT.sign({ _id: admin.id }, process.env.JWT_SECRET)
-        res.cookie('admin_jwt', token, {
-            httOnly: true,
-            expiresIn: 24 * 60 * 60 * 1000
-        })
+res.cookie('admin_jwt', token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production', // Secure in production
+    maxAge: 24 * 60 * 60 * 1000, // 1 day
+});
+
         //sending status
         res.status(200).send({
             success: true,
