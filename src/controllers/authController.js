@@ -93,7 +93,6 @@ const adminLoginController = async (req, res) => {
 const isAuthenticated  = async (req, res, next) => {
     try {
         const cookie = req.cookies['jwt'];
-        console.log(cookie);
         if (!cookie) {
             return res.status(401).send({success: false, message: 'unauthenticated' });
         }
@@ -144,24 +143,34 @@ const isAdminAuthenticated  = async (req, res, next) => {
 };
 
 
-//for logout
 const logoutController = async (req, res) => {
     try {
-        res.cookie('jwt', '', { expires: new Date(0) });
+        res.cookie('jwt', '', {
+            httpOnly: true, // Match the same settings as the original cookie
+            secure: process.env.NODE_ENV === 'production', // Match the secure setting of the original
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // Match the original sameSite
+            expires: new Date(0), // Expire the cookie immediately
+        });
         res.status(200).send({
             success: true,
-            message: 'logged out'
+            message: 'Logged out successfully',
         });
     } catch (error) {
         console.error('Error in logoutController:', error.message);
-        res.status(500).send({ success: false ,message: 'Internal server error' });
+        res.status(500).send({ success: false, message: 'Internal server error' });
     }
 };
+
 
 //for logout
 const adminLogoutController = async (req, res) => {
     try {
-        res.cookie('admin_jwt', '', { expires: new Date(0) });
+        res.cookie('admin_jwt', '', {
+            httpOnly: true, // Match the same settings as the original cookie
+            secure: process.env.NODE_ENV === 'production', // Match the secure setting of the original
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // Match the original sameSite
+            expires: new Date(0), // Expire the cookie immediately
+        });
         res.status(200).send({
             success: true,
             message: 'logged out'
