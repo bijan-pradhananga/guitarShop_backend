@@ -89,6 +89,7 @@ const adminLoginController = async (req, res) => {
 const isAuthenticated  = async (req, res, next) => {
     try {
         const cookie = req.cookies['jwt'];
+        console.log(cookie);
         if (!cookie) {
             return res.status(401).send({success: false, message: 'unauthenticated' });
         }
