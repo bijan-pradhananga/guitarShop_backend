@@ -75,7 +75,7 @@ const adminLoginController = async (req, res) => {
         res.cookie('jwt', token, {
             httpOnly: true, // Prevent client-side JavaScript from accessing the cookie
             secure: process.env.NODE_ENV === 'production', // Send cookies only over HTTPS in production
-            sameSite: 'strict', // Adjust based on your needs (e.g., 'lax', 'none', or 'strict')
+            sameSite: 'none', // Adjust based on your needs (e.g., 'lax', 'none', or 'strict')
             maxAge: 24 * 60 * 60 * 1000, // Cookie expiration time in milliseconds
         });
         //sending status
