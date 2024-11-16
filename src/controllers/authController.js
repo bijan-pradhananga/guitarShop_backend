@@ -71,10 +71,13 @@ const adminLoginController = async (req, res) => {
         }
         //generate token
         const token = await JWT.sign({ _id: admin.id }, process.env.JWT_SECRET)
-        res.cookie('admin_jwt', token, {
-            httOnly: true,
-            expiresIn: 24 * 60 * 60 * 1000
-        })
+        // Set cookie
+        res.cookie('jwt', token, {
+            httpOnly: true, // Prevent client-side JavaScript from accessing the cookie
+            secure: process.env.NODE_ENV === 'production', // Send cookies only over HTTPS in production
+            sameSite: 'strict', // Adjust based on your needs (e.g., 'lax', 'none', or 'strict')
+            maxAge: 24 * 60 * 60 * 1000, // Cookie expiration time in milliseconds
+        });
         //sending status
         res.status(200).send({
             success: true,
@@ -86,20 +89,20 @@ const adminLoginController = async (req, res) => {
 }
 
 //for authentication
-const isAuthenticated  = async (req, res, next) => {
+const isAuthenticated = async (req, res, next) => {
     try {
         const cookie = req.cookies['jwt'];
         console.log(cookie);
         if (!cookie) {
-            return res.status(401).send({success: false, message: 'unauthenticated' });
+            return res.status(401).send({ success: false, message: 'unauthenticated' });
         }
         const claims = JWT.verify(cookie, process.env.JWT_SECRET);
         if (!claims) {
-            return res.status(401).send({success: false, message: 'claims not match' });
+            return res.status(401).send({ success: false, message: 'claims not match' });
         }
         const user = await User.findOne({ _id: claims._id });
         if (!user) {
-            return res.status(404).send({success: false, message: 'User not found' });
+            return res.status(404).send({ success: false, message: 'User not found' });
         }
 
         res.status(200).json({
@@ -114,19 +117,19 @@ const isAuthenticated  = async (req, res, next) => {
 };
 
 //for authentication
-const isAdminAuthenticated  = async (req, res, next) => {
+const isAdminAuthenticated = async (req, res, next) => {
     try {
         const cookie = req.cookies['admin_jwt'];
         if (!cookie) {
-            return res.status(401).send({success: false, message: 'unauthenticated' });
+            return res.status(401).send({ success: false, message: 'unauthenticated' });
         }
         const claims = JWT.verify(cookie, process.env.JWT_SECRET);
         if (!claims) {
-            return res.status(401).send({success: false, message: 'unauthenticated' });
+            return res.status(401).send({ success: false, message: 'unauthenticated' });
         }
         const admin = await Admin.findOne({ _id: claims._id });
         if (!admin) {
-            return res.status(404).send({success: false, message: 'Admin not found' });
+            return res.status(404).send({ success: false, message: 'Admin not found' });
         }
         res.status(200).json({
             success: true,
@@ -150,7 +153,7 @@ const logoutController = async (req, res) => {
         });
     } catch (error) {
         console.error('Error in logoutController:', error.message);
-        res.status(500).send({ success: false ,message: 'Internal server error' });
+        res.status(500).send({ success: false, message: 'Internal server error' });
     }
 };
 
@@ -164,10 +167,10 @@ const adminLogoutController = async (req, res) => {
         });
     } catch (error) {
         console.error('Error in logoutController:', error.message);
-        res.status(500).send({ success: false ,message: 'Internal server error' });
+        res.status(500).send({ success: false, message: 'Internal server error' });
     }
 };
 
 
 
-module.exports = { loginController, registerController, isAuthenticated  ,logoutController, adminLoginController, adminLogoutController,isAdminAuthenticated}
+module.exports = { loginController, registerController, isAuthenticated, logoutController, adminLoginController, adminLogoutController, isAdminAuthenticated }
