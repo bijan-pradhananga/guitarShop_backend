@@ -74,9 +74,11 @@ const adminLoginController = async (req, res) => {
         //generate token
         const token = await JWT.sign({ _id: admin.id }, process.env.JWT_SECRET)
         res.cookie('admin_jwt', token, {
-            httOnly: true,
-            expiresIn: 24 * 60 * 60 * 1000
-        })
+            httpOnly: true, // Prevent client-side access to the cookie
+            secure: process.env.NODE_ENV === 'production', // Use HTTPS in production
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // Cross-origin support for production
+            maxAge: 24 * 60 * 60 * 1000, // 1 day in milliseconds
+        });
         //sending status
         res.status(200).send({
             success: true,
